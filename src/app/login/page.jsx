@@ -23,18 +23,16 @@ const Login = () => {
         {
           email,
           password,
-        },
-        {
-          withCredentials: true,
         }
       );
 
       const { userId, token } = res.data;
-      // document.cookie = `token=${token}; path=/; expires=${new Date(
-      //   new Date().getTime() + 4 * 60 * 60 * 1000
-      // ).toUTCString()};`;
-
       const remainingMilliseconds = 60 * 60 * 1000;
+
+      document.cookie = `token=${token}; expires=${new Date(
+        new Date().getTime() + remainingMilliseconds * 4
+      ).toUTCString()};`;
+
       const expDate = new Date(
         new Date().getTime() + 4 * remainingMilliseconds
       );
