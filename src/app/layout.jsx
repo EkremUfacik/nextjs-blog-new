@@ -1,10 +1,8 @@
 import Navbar from "@/components/Navbar";
 import "./globals.css";
 import { Inter } from "next/font/google";
-import ContextProvider from "@/context/ContextProvider";
 import { Toaster } from "@/components/ui/toaster";
 import ReduxProvider from "@/providers/ReduxProvider";
-import IsLoginProvider from "@/providers/IsLoginProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,7 +17,7 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <ReduxProvider>
           <Navbar />
-          <IsLoginProvider>{children}</IsLoginProvider>
+          {children}
           <Toaster />
         </ReduxProvider>
       </body>

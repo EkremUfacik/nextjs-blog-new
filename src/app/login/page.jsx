@@ -1,18 +1,13 @@
 "use client";
 
 import { toast } from "@/components/ui/use-toast";
-import { useAuthContext } from "@/context/ContextProvider";
 import { fetchFail, fetchStart, fetchSuccess } from "@/redux/authSlice";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const Login = () => {
   const router = useRouter();
-  // const { setUserId } = useAuthContext();
-  // const [error, setError] = useState("");
-  // const [loading, setLoading] = useState("");
   const { loading, error } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
@@ -39,18 +34,11 @@ const Login = () => {
         new Date().getTime() + 4 * 60 * 60 * 1000
       ).toUTCString()};`;
 
-      // setToken(data.token);
-
-      // setUserId(userId);
-      // localStorage.setItem("token", data.token);
-      // localStorage.setItem("userId", userId);
-
       const remainingMilliseconds = 60 * 60 * 1000;
       const expDate = new Date(
         new Date().getTime() + 4 * remainingMilliseconds
       );
-      // localStorage.setItem("expiryDate", expiryDate.toISOString());
-      // setLoading(false);
+
       dispatch(fetchSuccess({ userId, expDate }));
       toast({
         title: "Login Successful",
@@ -60,9 +48,7 @@ const Login = () => {
       router.push("/");
     } catch (error) {
       console.log(error);
-      // setLoading(false);
-      // setError(error.response.data.message);
-      // dispatch(fetchFail(error.response.data.message));
+      dispatch(fetchFail(error.response.data.message));
     }
   };
 

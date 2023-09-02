@@ -1,6 +1,5 @@
 "use client";
 
-import { useAuthContext } from "@/context/ContextProvider";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "./ui/use-toast";
@@ -14,12 +13,12 @@ const Navbar = () => {
   const dispatch = useDispatch();
 
   const handleSignout = () => {
-    // localStorage.removeItem("token");
     toast({
       title: "Logout Successful",
       description: "You are now logged out",
     });
     router.push("/login");
+    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     dispatch(logout());
   };
 

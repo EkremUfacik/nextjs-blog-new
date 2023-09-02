@@ -3,7 +3,6 @@
 import { useRouter } from "next/navigation";
 import PostModal from "@/components/PostModal";
 import { useState } from "react";
-import { useAuthContext } from "@/context/ContextProvider";
 import axios from "axios";
 import { toast } from "./ui/use-toast";
 import { useSelector } from "react-redux";

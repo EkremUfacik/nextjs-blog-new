@@ -1,15 +1,14 @@
 "use client";
 
 import { toast } from "@/components/ui/use-toast";
-import { useAuthContext } from "@/context/ContextProvider";
+import { fetchStart } from "@/redux/authSlice";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 const Signup = () => {
-  const { setUserId } = useAuthContext();
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState("");
+  const { loading, error } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
 
   const router = useRouter();
 
@@ -20,7 +19,7 @@ const Signup = () => {
     const password = e.target.password.value;
 
     try {
-      setLoading(true);
+      dispatch(fetchStart());
       const res = await axios.put(
         "https://blog-api-eu.onrender.com/auth/signup",
         {
@@ -32,27 +31,20 @@ const Signup = () => {
       );
 
       const { userId } = res.data;
-      // setToken(data.token);
-      setUserId(userId);
-
-      // localStorage.setItem("token", data.token);
-      localStorage.setItem("userId", userId);
 
       const remainingMilliseconds = 60 * 60 * 1000;
       const expiryDate = new Date(
         new Date().getTime() + 4 * remainingMilliseconds
       );
-      localStorage.setItem("expiryDate", expiryDate.toISOString());
-      router.push("/");
-      setLoading(false);
+      dispatch(fetchSuccess({ userId, expDate }));
       toast({
         title: "Signup Successful",
         description: "You are now signed up",
       });
+      router.push("/");
     } catch (error) {
       console.log(error);
-      setLoading(false);
-      setError(error.response.data.message);
+      dispatch(fetchFail(error.response.data.message));
     }
   };
 
@@ -77,7 +69,7 @@ const Signup = () => {
             id="email"
             className="w-full border outline-none ps-3 py-2 mt-2 focus:shadow-lg"
             required
-            onFocus={() => setError("")}
+            // onFocus={() => setError("")}
           />
         </label>
         <label htmlFor="name">
@@ -87,7 +79,7 @@ const Signup = () => {
             id="name"
             className="w-full border outline-none ps-3 py-2 mt-2 focus:shadow-lg"
             required
-            onFocus={() => setError("")}
+            // onFocus={() => setError("")}
           />
         </label>
         <label htmlFor="password">
@@ -97,7 +89,7 @@ const Signup = () => {
             id="password"
             className="w-full border outline-none ps-3 py-2 mt-2 focus:shadow-lg"
             required
-            onFocus={() => setError("")}
+            // onFocus={() => setError("")}
           />
         </label>
         <button
