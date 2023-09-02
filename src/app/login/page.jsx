@@ -30,9 +30,9 @@ const Login = () => {
       );
 
       const { userId, token } = res.data;
-      document.cookie = `token=${token}; path=/; expires=${new Date(
-        new Date().getTime() + 4 * 60 * 60 * 1000
-      ).toUTCString()};`;
+      // document.cookie = `token=${token}; path=/; expires=${new Date(
+      //   new Date().getTime() + 4 * 60 * 60 * 1000
+      // ).toUTCString()};`;
 
       const remainingMilliseconds = 60 * 60 * 1000;
       const expDate = new Date(
