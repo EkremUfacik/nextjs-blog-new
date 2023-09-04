@@ -23,6 +23,9 @@ const Login = () => {
         {
           email,
           password,
+        },
+        {
+          withCredentials: true,
         }
       );
 

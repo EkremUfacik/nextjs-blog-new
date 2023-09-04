@@ -1,6 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "./authSlice";
-import storage from "redux-persist/lib/storage";
 import {
   persistReducer,
   persistStore,
@@ -11,6 +10,7 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
+import storage from "../utils/storage";
 
 const persistConfig = {
   key: "root",

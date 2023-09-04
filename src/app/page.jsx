@@ -10,9 +10,10 @@ const fetchPosts = async () => {
       headers: {
         Cookie: "token=" + token,
       },
-      next: {
-        tags: ["posts"],
-      },
+      // next: {
+      //   revalidate: 1,
+      //   tags: ["posts"],
+      // },
     });
     return res.json();
   } catch (error) {
