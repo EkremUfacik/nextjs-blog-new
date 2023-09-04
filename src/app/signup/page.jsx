@@ -33,7 +33,7 @@ const Signup = () => {
       const { userId } = res.data;
 
       const remainingMilliseconds = 60 * 60 * 1000;
-      const expiryDate = new Date(
+      const expDate = new Date(
         new Date().getTime() + 4 * remainingMilliseconds
       );
       dispatch(fetchSuccess({ userId, expDate }));
